@@ -4,6 +4,10 @@ if (process.env.NODE_ENV == 'development') {
     dotenv.config();
 }
 
+const client = {
+    domain: process.env.CLIENT_DOMAIN
+};
+
 const sessionDB = {
     host: process.env.SESSION_DB_HOST,
     user: process.env.SESSION_DB_USER,
@@ -20,4 +24,4 @@ const twilioConfig = {
     apiSecret: process.env.TWILIO_API_SECRET
 };
 
-export { sessionDB, twilioConfig };
+export { client, sessionDB, twilioConfig };

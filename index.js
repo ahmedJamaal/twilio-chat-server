@@ -6,10 +6,8 @@ import store from 'connect-mongo';
 import cors from 'cors';
 
 import { client, sessionDB } from './config/index.js';
-// import { checkAccessToken } from './helpers/auth.js';
-// import authRouter from './routes/auth.js';
-// import sessionRouter from './routes/session.js';
-// import apiRouter from './routes/index.js';
+import authRouter from './routes/auth.js';
+import apiRouter from './routes/index.js';
 
 var app = express();
 
@@ -43,25 +41,15 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// app.use('/oauth', authRouter);
-// app.use('/session', sessionRouter);
-// app.use(checkAccessToken);
-// app.use('/api', apiRouter);
+app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 
 app.use(function (req, res, next) {
     next(createError(404));
 });
 
 app.use(function (err, req, res, next) {
-    if (err.__collection) {
-        res.status(500).send(err.__collection);
-    } else {
-        res.status(err.status || 500)
-            .send({
-                message: err.message,
-                error: req.app.get('env') === 'development' ? err : {}
-            });
-    }
+    res.status(err.status || 500).send(err);
 });
 
 app.listen(3001);
