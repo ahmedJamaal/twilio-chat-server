@@ -6,30 +6,32 @@ function CreateToken(req, res, next) {
     const ChatGrant = AccessToken.ChatGrant;
 
     const serviceSid = req.body.serviceSid;
-    const email = req.body.email;
+    const username = req.body.username;
 
     if (req.session.token) {
         res.send({ token: req.session.token });
     }
-    else if (email && serviceSid) {
-        const chatGrant = new ChatGrant({
-            serviceSid: serviceSid,
-        });
-
+    else if (username) {
         const token = new AccessToken(
             twilioConfig.accountSid,
             twilioConfig.apiKey,
             twilioConfig.apiSecret,
-            { identity: email }
+            { identity: username }
         );
 
-        token.addGrant(chatGrant);
+        if (serviceSid) {
+            const chatGrant = new ChatGrant({
+                serviceSid: serviceSid,
+            });
+
+            token.addGrant(chatGrant);
+        }
 
         req.session.token = token.toJwt();
 
         res.send({ token: req.session.token });
     } else {
-        next({ message: 'Missing email or service SID' });
+        next({ message: 'Missing username' });
     }
 }
 
