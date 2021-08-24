@@ -8,7 +8,10 @@ function CreateToken(req, res, next) {
     const serviceSid = req.body.serviceSid;
     const email = req.body.email;
 
-    if (email && serviceSid) {
+    if (req.session.token) {
+        res.send({ token: req.session.token });
+    }
+    else if (email && serviceSid) {
         const chatGrant = new ChatGrant({
             serviceSid: serviceSid,
         });
@@ -24,7 +27,7 @@ function CreateToken(req, res, next) {
 
         req.session.token = token.toJwt();
 
-        res.send(token);
+        res.send({ token: req.session.token });
     } else {
         next({ message: 'Missing email or service SID' });
     }
@@ -32,7 +35,7 @@ function CreateToken(req, res, next) {
 
 function GetToken(req, res, next) {
     if (req.session.token) {
-        res.send(req.session.token);
+        res.send({ token: req.session.token });
     } else {
         next({ status: 400, message: 'Token not set' });
     }

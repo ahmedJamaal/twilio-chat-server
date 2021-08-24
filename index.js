@@ -34,7 +34,7 @@ app.use(session({
     }),
     secret: sessionDB.secret,
     cookie: {
-        maxAge: 2 * 60 * 60 * 1000
+        maxAge: 3600 * 1000
     },
     name: 'twilio.sid',
     resave: false,
