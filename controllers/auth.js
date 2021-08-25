@@ -6,4 +6,9 @@ function GetToken(req, res, next) {
     }
 }
 
-export { GetToken };
+function DeleteToken(req, res, next) {
+    delete req.session.token;
+    delete req.session.username;
+}
+
+export { DeleteToken, GetToken };

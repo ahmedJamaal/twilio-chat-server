@@ -16,9 +16,12 @@ async function StartConversation(req, res, next) {
         req.session.token = createToken(username, conversation.chatServiceSid);
         req.session.username = username;
 
-        res.send(conversation);
+        const participant = await client.conversations.conversations(conversation.sid)
+            .participants.create({ identity: username })
+
+        res.send({ conversation, participant });
     } else {
-        next({ message: 'Provide conversation title or username' });
+        next({ message: 'Missing conversation title or username' });
     }
 }
 
@@ -29,12 +32,15 @@ async function AddParticipant(req, res, next) {
     const conversationSid = req.params.id;
 
     if (username && conversationSid) {
+        req.session.token = createToken(username, conversationSid);
+        req.session.username = username;
+
         const participant = await client.conversations.conversations(conversation.sid)
             .participants.create({ identity: req.session.username })
 
         res.send({ conversation, participant });
     } else {
-        next({ message: 'Provide username and conversationSid' });
+        next({ message: 'Missing username or conversationSid' });
     }
 }
 
