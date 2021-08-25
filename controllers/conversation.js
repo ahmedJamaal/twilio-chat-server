@@ -1,14 +1,42 @@
 import { twilioConfig } from '../config/index.js';
+import { createToken } from '../helpers/auth.js';
 import twilio from 'twilio';
 
 async function StartConversation(req, res, next) {
     const client = twilio(twilioConfig.accountSid, twilioConfig.authToken);
+
     const conversationTitle = req.body.conversationTitle;
+    const username = req.body.username;
 
-    const conversation = await client.conversations.conversations
-        .create({ friendlyName: conversationTitle });
+    if (conversationTitle && username) {
+        const conversation = await client.conversations.conversations
+            .create({ friendlyName: conversationTitle });
 
-    res.send(conversation);
+
+        req.session.token = createToken(username, conversation.chatServiceSid);
+        req.session.username = username;
+
+        res.send(conversation);
+    } else {
+        next({ message: 'Provide conversation title or username' });
+    }
 }
 
-export { StartConversation };
+async function AddParticipant(req, res, next) {
+    const client = twilio(twilioConfig.accountSid, twilioConfig.authToken);
+
+    const username = req.body.username;
+    const conversationSid = req.params.id;
+
+    if (username && conversationSid) {
+        const participant = await client.conversations.conversations(conversation.sid)
+            .participants.create({ identity: req.session.username })
+
+        res.send({ conversation, participant });
+    } else {
+        next({ message: 'Provide username and conversationSid' });
+    }
+}
+
+
+export { StartConversation, AddParticipant };

@@ -4,6 +4,6 @@ import conversationRouter from './conversation.js';
 
 var router = Router();
 
-router.use('/conversation', conversationRouter);
+router.use('/conversations', conversationRouter);
 
 export default router;
