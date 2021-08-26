@@ -31,13 +31,14 @@ async function AddParticipant(req, res, next) {
     const conversationSid = req.params.id;
 
     const conversation = await client.conversations.conversations
-        .get(conversationSid);
+        .get(conversationSid).fetch();
 
     if (username && conversationSid) {
         req.session.token = createToken(username, conversation.chatServiceSid);
         req.session.username = username;
 
-        const participant = conversation.participants.create({ identity: req.session.username })
+        const participant = await client.conversations.conversations(conversationSid)
+            .participants.create({ identity: username })
 
         res.send({ conversation, participant });
     } else {
