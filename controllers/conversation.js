@@ -14,6 +14,7 @@ async function StartConversation(req, res, next) {
                 .create({ friendlyName: conversationTitle });
 
             req.session.token = createToken(username, conversation.chatServiceSid);
+            req.session.username = username;
 
             const participant = await client.conversations.conversations(conversation.sid)
                 .participants.create({ identity: username })
@@ -40,6 +41,7 @@ async function AddParticipant(req, res, next) {
 
         if (username && conversationSid) {
             req.session.token = createToken(username, conversation.chatServiceSid);
+            req.session.username = username;
 
             const participant = await client.conversations.conversations(conversationSid)
                 .participants.create({ identity: username })
