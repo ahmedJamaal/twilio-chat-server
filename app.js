@@ -6,8 +6,8 @@ import store from 'connect-mongo';
 import cors from 'cors';
 
 import { client, sessionDB } from './config/index.js';
-import authRouter from './routes/auth.js';
-import apiRouter from './routes/index.js';
+
+import router from './routes/index.js';
 
 var app = express();
 
@@ -19,7 +19,7 @@ app.use(urlencoded({ extended: false }));
 app.use(cors({
     origin: client.domain,
     credentials: true,
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    methods: ['GET', 'POST', 'DELETE'],
     maxAge: 2 * 60 * 60 * 1000,
     allowedHeaders: ['Content-Type', 'Range'],
     exposedHeaders: ['Accept-Ranges', 'Content-Encoding', 'Content-Length', 'Content-Range']
@@ -41,8 +41,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use('/auth', authRouter);
-app.use('/api', apiRouter);
+app.use('/', router);
 
 app.use(function (req, res, next) {
     next(createError(404));
