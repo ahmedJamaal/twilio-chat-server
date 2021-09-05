@@ -4,8 +4,8 @@ if (process.env.NODE_ENV == 'development') {
     dotenv.config();
 }
 
-const client = {
-    domain: process.env.CLIENT_DOMAIN
+const corsClient = {
+    domain: process.env.CORS_CLIENT_DOMAIN
 };
 
 const sessionDB = {
@@ -24,4 +24,4 @@ const twilioConfig = {
     apiSecret: process.env.TWILIO_API_SECRET
 };
 
-export { client, sessionDB, twilioConfig };
+export { corsClient, sessionDB, twilioConfig };

@@ -1,5 +1,5 @@
 import { twilioConfig } from '../config/index.js';
-import { createToken } from '../helpers/auth.js';
+import { createToken } from '../utils/auth.js';
 import twilio from 'twilio';
 
 async function StartConversation(req, res, next) {

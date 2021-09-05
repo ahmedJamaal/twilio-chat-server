@@ -1,11 +1,11 @@
+import cors from 'cors';
 import createError from 'http-errors';
 import express, { json, urlencoded } from 'express';
 import logger from 'morgan';
 import session from 'express-session';
 import store from 'connect-mongo';
-import cors from 'cors';
 
-import { client, sessionDB } from './config/index.js';
+import { corsClient, sessionDB } from './config/index.js';
 
 import router from './routes/index.js';
 
@@ -17,7 +17,7 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 
 app.use(cors({
-    origin: client.domain,
+    origin: corsClient.domain,
     credentials: true,
     methods: ['GET', 'POST', 'DELETE'],
     maxAge: 2 * 60 * 60 * 1000,
@@ -44,7 +44,7 @@ app.use(session({
 app.use('/', router);
 
 app.use(function (req, res, next) {
-    next(createError(404));
+    next(createError(404, 'Route does not exist.'));
 });
 
 app.use(function (err, req, res, next) {
