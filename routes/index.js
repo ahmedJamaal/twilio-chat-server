@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import authRouter from './auth.js';
-import conversationRouter from './conversation.js';
+import conversationRouter from './conversations.js';
 
 var router = Router();
 

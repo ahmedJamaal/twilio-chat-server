@@ -2,7 +2,7 @@ function GetToken(req, res, next) {
     if (req.session.token) {
         res.send({ token: req.session.token, username: req.session.username });
     } else {
-        next({ message: 'Token not set' });
+        next({ status: 404, message: 'Token not set' });
     }
 }
 
