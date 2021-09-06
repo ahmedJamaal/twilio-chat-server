@@ -5,13 +5,12 @@ import logger from 'morgan';
 import session from 'express-session';
 import store from 'connect-mongo';
 
-import { corsClient, sessionDB } from './config/index.js';
+import { corsClient, port, sessionDB } from './config/index.js';
 
 import router from './routes/index.js';
 
 var app = express();
 
-app.set('query parser', 'simple');
 app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
@@ -20,7 +19,7 @@ app.use(cors({
     origin: corsClient.domain,
     credentials: true,
     methods: ['GET', 'POST', 'DELETE'],
-    maxAge: 2 * 60 * 60 * 1000,
+    maxAge: 3600 * 1000,
     allowedHeaders: ['Content-Type', 'Range'],
     exposedHeaders: ['Accept-Ranges', 'Content-Encoding', 'Content-Length', 'Content-Range']
 }));
@@ -52,4 +51,4 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500).send(err);
 });
 
-app.listen(8000);
+app.listen(port);

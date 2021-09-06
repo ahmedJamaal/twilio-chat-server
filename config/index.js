@@ -24,4 +24,6 @@ const twilioConfig = {
     apiSecret: process.env.TWILIO_API_SECRET
 };
 
-export { corsClient, sessionDB, twilioConfig };
+const port = process.env.PORT || '8000';
+
+export { corsClient, port, sessionDB, twilioConfig };
