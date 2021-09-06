@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { AddParticipant, StartConversation } from '../controllers/conversation.js';
+import { AddParticipant, StartConversation } from '../controllers/conversations.js';
 import { asyncWrapper } from '../utils/controller.js';
 
 var router = Router();
