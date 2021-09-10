@@ -4,19 +4,6 @@ if (process.env.NODE_ENV == 'development') {
     dotenv.config();
 }
 
-const corsClient = {
-    domain: process.env.CORS_CLIENT_DOMAIN
-};
-
-const sessionDB = {
-    host: process.env.SESSION_DB_HOST,
-    user: process.env.SESSION_DB_USER,
-    pass: process.env.SESSION_DB_PASS,
-    port: process.env.SESSION_DB_PORT,
-    name: process.env.SESSION_DB_NAME,
-    secret: process.env.SESSION_DB_SECRET
-};
-
 const twilioConfig = {
     accountSid: process.env.TWILIO_ACCOUNT_SID,
     authToken: process.env.TWILIO_AUTH_TOKEN,
@@ -26,4 +13,4 @@ const twilioConfig = {
 
 const port = process.env.PORT || '8000';
 
-export { corsClient, port, sessionDB, twilioConfig };
+export { port, twilioConfig };
