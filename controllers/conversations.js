@@ -46,7 +46,7 @@ async function AddParticipant(req, res, next) {
 
             res.send({ conversation, participant, token, username });
         } else {
-            next({ message: 'Missing username or conversation Sid' });
+            next({ message: 'Missing conversation SID or username' });
         }
     } catch (error) {
         next({ error, message: 'There was a problem adding a participant' });
