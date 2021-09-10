@@ -4,6 +4,10 @@ if (process.env.NODE_ENV == 'development') {
     dotenv.config();
 }
 
+const corsClient = {
+    domain: process.env.CORS_CLIENT_DOMAIN
+};
+
 const twilioConfig = {
     accountSid: process.env.TWILIO_ACCOUNT_SID,
     authToken: process.env.TWILIO_AUTH_TOKEN,
@@ -13,4 +17,4 @@ const twilioConfig = {
 
 const port = process.env.PORT || '8000';
 
-export { port, twilioConfig };
+export { corsClient, port, twilioConfig };
