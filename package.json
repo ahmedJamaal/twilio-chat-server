@@ -2,13 +2,13 @@
   "name": "twilio-chat-server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node app.js",
+    "start": "node index.js",
     "start:dev": "NODE_ENV=development npm start",
-    "nodemon-start:dev": "NODE_ENV=development nodemon app.js"
+    "nodemon-start:dev": "NODE_ENV=development nodemon index.js"
   },
   "repository": {
     "type": "git",
