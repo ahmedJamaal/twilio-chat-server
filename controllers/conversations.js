@@ -5,8 +5,7 @@ import twilio from 'twilio';
 async function StartConversation(req, res, next) {
     const client = twilio(twilioConfig.accountSid, twilioConfig.authToken);
 
-    const conversationTitle = req.body.conversationTitle;
-    const username = req.body.username;
+    const { conversationTitle, username } = req.body;
 
     try {
         if (conversationTitle && username) {
@@ -32,7 +31,7 @@ async function StartConversation(req, res, next) {
 async function AddParticipant(req, res, next) {
     const client = twilio(twilioConfig.accountSid, twilioConfig.authToken);
 
-    const username = req.body.username;
+    const { username } = req.body;
     const conversationSid = req.params.id;
 
     try {

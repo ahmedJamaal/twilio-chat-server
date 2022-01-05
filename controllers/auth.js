@@ -6,7 +6,7 @@ function GetToken(req, res, next) {
     }
 }
 
-function DeleteToken(req, res, next) {
+function DeleteToken(req, res, _next) {
     delete req.session.token;
     delete req.session.username;
 

@@ -43,11 +43,11 @@ app.use(session({
 
 app.use('/', router);
 
-app.use(function (req, res, next) {
+app.use(function (_req, _res, next) {
     next(createError(404, 'Route does not exist.'));
 });
 
-app.use(function (err, req, res, next) {
+app.use(function (err, _req, res, _next) {
     res.status(err.status || 500).send(err);
 });
 
